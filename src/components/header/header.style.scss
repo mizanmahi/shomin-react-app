@@ -1,0 +1,41 @@
+.header {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  
+    .logo-container {
+      height: 100%;
+      width: 70px;
+
+      .logo{
+          height: 100%;
+      }
+    }
+  
+    .options {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+  
+      .option {
+        padding: 10px 15px;
+        border: 1px solid black;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: .3s;
+
+        &:not(:last-child){
+          margin-right: 10px;
+        }
+        &:hover {
+          background: #000;
+          color: white;
+        }
+      }
+    }
+  }
+  

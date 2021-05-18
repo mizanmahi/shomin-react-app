@@ -1,0 +1,50 @@
+.custom-button-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.custom-button {
+    min-width: 165px;
+    // width: auto;
+    height: 50px;
+    letter-spacing: 0.5px;
+    line-height: 50px;
+    padding: 0 25px 0 25px;
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 3px;
+    font-weight: bolder;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+  
+    &:hover {
+      background-color: white;
+      color: black;
+      border: 1px solid black;
+    }
+
+    &.google{
+      background:#DB4437;
+      color: white;
+      width: 250px;
+
+      &:hover {
+        background: #fff;
+        color: #DB4437;
+      }
+    }
+
+    &.inverted{
+      background: #fff;
+      color: #000;
+      &:hover{
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+  
