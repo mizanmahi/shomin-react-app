@@ -1,15 +1,13 @@
 .custom-button-container {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .custom-button {
-    min-width: 165px;
     // width: auto;
     height: 50px;
     letter-spacing: 0.5px;
-    line-height: 50px;
     padding: 0 25px 0 25px;
     font-size: 15px;
     background-color: black;
@@ -30,7 +28,6 @@
     &.google{
       background:#DB4437;
       color: white;
-      width: 250px;
 
       &:hover {
         background: #fff;
