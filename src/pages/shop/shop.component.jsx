@@ -1,33 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import WithSpinner from "../../components/with-spinner/with-spinner";
 import CollectionOverview from "../../components/collection-overview/collection-overview.component";
 import CollectionPage from "../collection/collection.component";
-import { firestore } from "../../firebase/firebase.utils";
-import { concertCollectionSnapshotToMap } from "../../firebase/firebase.utils.js";
-import { updateCollection } from "../../redux/shop/shop-action";
+// import { updateCollection } from "../../redux/shop/shop-action";
+import { fetchCollectionData } from "../../redux/shop/shop-action";
+import { selectLoading } from "../../redux/shop/shop-selector";
 
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
 
-const ShopPage = ({ match, updateCollection }) => {
-   const [loading, setLoading] = useState(true);
-   console.log(loading);
+const ShopPage = ({ match, loading, fetchCollections }) => {
+  console.log(loading);
 
    useEffect(() => {
-      const colRef = firestore.collection("collection");
-      const removeSnap = colRef.onSnapshot(async (snapshot) => {
-         const newCollections = concertCollectionSnapshotToMap(snapshot);
-         updateCollection(newCollections);
-         setLoading(false)
-      });
-
-      return () => {
-         removeSnap()
-      }
-   }, [updateCollection]);
+      fetchCollections()
+   }, [fetchCollections]);
 
    return (
       <div className="shop-page">
@@ -51,8 +42,12 @@ const ShopPage = ({ match, updateCollection }) => {
    );
 };
 
+const mapStateToProps = createStructuredSelector({
+   loading: selectLoading
+})
+
 const mapDispatchToProps = (dispatch) => ({
-   updateCollection: (collection) => dispatch(updateCollection(collection)),
+   fetchCollections: () => dispatch(fetchCollectionData()),
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);

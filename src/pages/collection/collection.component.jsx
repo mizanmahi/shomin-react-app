@@ -21,6 +21,7 @@ const CollectionPage = ({ collections }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+   // ownProps is the components original normal props in this case its passed by the Route
    console.log(ownProps);
    return {
       collections: selecCollections(ownProps.match.params.collectionId)(state),

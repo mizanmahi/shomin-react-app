@@ -5,7 +5,6 @@ import CollectionItem from "../collection-tem/collection-item.component";
 import "./collection-preview.style.scss";
 
 const CollectionPreview = ({ items, title, match }) => {
-   console.log(match);
    return (
       <div className="collection-preview">
          {/* <h1 className="title" >{ title + " Mizan" }</h1> */}

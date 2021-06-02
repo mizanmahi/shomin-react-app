@@ -5,17 +5,14 @@ import {
    BrowserRouter as Router,
    Redirect,
 } from "react-router-dom";
-import {
-   auth,
-   createUserProfileDocument,
-} from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { selectCurrentUser } from "./redux/user/user-selector";
-
 import setCurrentUser from "./redux/user/user-action";
 
+// pages
 import Header from "./components/header/header.component.jsx";
 import HomePage from "./pages/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
@@ -23,6 +20,7 @@ import SignInAndSignUpPage from "./pages/signin-and-signup-page/signin-and-signu
 import CheckoutPage from "./pages/checkout/checkout-page.component";
 import CollectionPage from "./pages/collection/collection.component";
 
+// css
 import "./App.css";
 
 class App extends React.Component {
@@ -69,8 +67,9 @@ class App extends React.Component {
                         )
                      }
                   />
-               <Route exact path="/checkout" component={CheckoutPage} />
-               <Route exact path="/collections" component={CollectionPage} />
+
+                  <Route exact path="/checkout" component={CheckoutPage} />
+                  <Route exact path="/collections" component={CollectionPage} />
                </Switch>
             </div>
          </Router>
