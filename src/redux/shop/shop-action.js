@@ -9,7 +9,6 @@ import {
    DATA_FETCH_FAIL,
 } from "./shop-action-type";
 
-
 const dataFechStart = () => {
    return {
       type: DATA_FETCH_START,
@@ -29,14 +28,15 @@ export const fetchCollectionData = () => {
    return (dispatch) => {
       dispatch(dataFechStart());
       const colRef = firestore.collection("collection");
-      setTimeout(() => {
-         colRef
-            .get()
-            .then(async (snapshot) => {
-               const newCollections = concertCollectionSnapshotToMap(snapshot);
-               dispatch(dataFechSuccess(newCollections));
-            })
-            .catch((err) => dispatch(dataFechFail(err)));
-      }, 1000);
+
+      colRef
+         .get()
+         .then(async (snapshot) => {
+            const newCollections = concertCollectionSnapshotToMap(snapshot);
+            dispatch(dataFechSuccess(newCollections));
+         })
+         .catch((err) => dispatch(dataFechFail(err)));
    };
 };
+
+console.log(process.env);
