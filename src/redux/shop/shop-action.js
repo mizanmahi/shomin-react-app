@@ -1,6 +1,6 @@
 import {
    firestore,
-   concertCollectionSnapshotToMap,
+   convertCollectionSnapshotToMap,
 } from "../../firebase/firebase.utils";
 
 import {
@@ -9,34 +9,32 @@ import {
    DATA_FETCH_FAIL,
 } from "./shop-action-type";
 
-const dataFechStart = () => {
+export const dataFetchStart = () => {
    return {
       type: DATA_FETCH_START,
    };
 };
 
-const dataFechSuccess = (data) => {
+export const dataFetchSuccess = (data) => {
    return {
       type: DATA_FETCH_SUCCESS,
       payload: data,
    };
 };
 
-const dataFechFail = (err) => ({ type: DATA_FETCH_FAIL, payload: err });
+export const dataFetchFail = (err) => ({ type: DATA_FETCH_FAIL, payload: err });
 
 export const fetchCollectionData = () => {
    return (dispatch) => {
-      dispatch(dataFechStart());
+      dispatch(dataFetchStart());
       const colRef = firestore.collection("collection");
 
       colRef
          .get()
          .then(async (snapshot) => {
-            const newCollections = concertCollectionSnapshotToMap(snapshot);
-            dispatch(dataFechSuccess(newCollections));
+            const newCollections = convertCollectionSnapshotToMap(snapshot);
+            dispatch(dataFetchSuccess(newCollections));
          })
-         .catch((err) => dispatch(dataFechFail(err)));
+         .catch((err) => dispatch(dataFetchFail(err)));
    };
 };
-
-console.log(process.env);

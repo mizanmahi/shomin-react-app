@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { fetchCollectionData } from "../../redux/shop/shop-action";
-import {} from "../../redux/shop/shop-selector";
+import { dataFetchStart } from "../../redux/shop/shop-action";
 import CollectionOverviewContainer from "../../components/collection-overview/collection-overview-container";
 import CollectionPageContainer from "../../pages/collection/collection.container.component";
 
@@ -28,7 +27,7 @@ const ShopPage = ({ match, fetchCollections }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-   fetchCollections: () => dispatch(fetchCollectionData()),
+   fetchCollections: () => dispatch(dataFetchStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);
