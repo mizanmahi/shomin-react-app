@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 import swal from 'sweetalert';
 
@@ -8,6 +9,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 import './sign-up.style.scss'
+import { signupStart } from '../../redux/user/user-action';
 
 class SignUp extends Component {
     constructor(){
@@ -23,24 +25,26 @@ class SignUp extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        const { displayName, password, confirmPassword, email } = this.state;
-        if(password !== confirmPassword){
-            swal("Password Don't Match!", "Please input password correctly");
-            return;
-        }
+        const { signupStart } = this.props;
+        signupStart()
+        // const { displayName, password, confirmPassword, email } = this.state;
+        // if(password !== confirmPassword){
+        //     swal("Password Don't Match!", "Please input password correctly");
+        //     return;
+        // }
 
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-             await createUserProfileDocument(user, { displayName })
-             this.setState({
-                displayName: '',
-                password: '',
-                confirmPassword: '',
-                email: ''
-             })
-        }catch(err){
-            swal(err.message, 'Use a different email', 'warning', { button: 'Lets change that'})
-        }
+        // try{
+        //     const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        //      await createUserProfileDocument(user, { displayName })
+        //      this.setState({
+        //         displayName: '',
+        //         password: '',
+        //         confirmPassword: '',
+        //         email: ''
+        //      })
+        // }catch(err){
+        //     swal(err.message, 'Use a different email', 'warning', { button: 'Lets change that'})
+        // }
     }
 
     handleChange = e => {
@@ -99,4 +103,8 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+    signupStart: () => dispatch(signupStart())
+})
+
+export default connect(null, mapDispatchToProps)(SignUp);
