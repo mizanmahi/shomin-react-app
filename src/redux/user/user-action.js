@@ -51,12 +51,14 @@ export const signoutFailure = (err) => ({
 });
 
 // SIGNUP ACTION CREATORS
-export const signupStart = () => ({
+export const signupStart = (userCredentials) => ({
    type: UserActionTypes.SIGNUP_START,
+   payload: userCredentials,
 });
 
-export const signupSuccess = () => ({
+export const signupSuccess = ({ user, additionalData }) => ({
    type: UserActionTypes.SIGNUP_SUCCESS,
+   payload: { user, additionalData },
 });
 
 export const signupFailure = () => ({

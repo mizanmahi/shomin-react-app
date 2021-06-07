@@ -7,6 +7,8 @@ import {
    emailSignInFailure,
    signoutSuccess,
    signoutFailure,
+   signupFailure,
+   signupSuccess,
 } from "./user-action";
 
 import {
@@ -62,7 +64,7 @@ function* isUserAuthenticated() {
 }
 
 // signout task
-function *signoutSaga() {
+function* signoutSaga() {
    try {
       yield auth.signOut();
       yield put(signoutSuccess());
@@ -72,8 +74,29 @@ function *signoutSaga() {
 }
 
 // signup task
-function *signupSaga(){
-   
+function* signupSaga({ payload: { email, password, displayName } }) {
+   try {
+      const { user } = yield auth.createUserWithEmailAndPassword(
+         email,
+         password
+      );
+      yield put(signupSuccess({ user, additionalData: { displayName } }));
+   } catch (err) {
+      yield put(signupFailure(err));
+   }
+}
+
+// signin task on signup
+function* signinAfterSignup({ payload: { user, additionalData } }) {
+   try {
+      const userRef = yield call(createUserProfileDocument, user, additionalData);
+      const userSnapShot = yield userRef.get();
+      yield put(
+         emailSignInSuccess({ id: userSnapShot.id, ...userSnapShot.data() })
+      );
+   } catch (err) {
+      put(emailSignInFailure(err));
+   }
 }
 
 export function* googleSignInStartSaga() {
@@ -92,8 +115,12 @@ export function* signoutStartSaga() {
    yield takeLatest(UserActionTypes.SIGNOUT_START, signoutSaga);
 }
 
-export function *signupStartSaga(){
-   yield takeLatest(UserActionTypes.SIGNUP_START, signupSaga)
+export function* signupStartSaga() {
+   yield takeLatest(UserActionTypes.SIGNUP_START, signupSaga);
+}
+
+export function* onSignupSuccessSaga() {
+   yield takeLatest(UserActionTypes.SIGNUP_SUCCESS, signinAfterSignup);
 }
 
 export function* userSagas() {
@@ -101,6 +128,8 @@ export function* userSagas() {
       call(googleSignInStartSaga),
       call(emailSignInStartSaga),
       call(checkUserSessionSaga),
-      call(signoutStartSaga)
+      call(signoutStartSaga),
+      call(signupStartSaga),
+      call(onSignupSuccessSaga)
    ]);
 }
