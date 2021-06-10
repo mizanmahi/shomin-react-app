@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
    Route,
    Switch,
@@ -23,28 +23,13 @@ import CollectionPage from "./pages/collection/collection.component";
 // css
 import "./App.css";
 
-class App extends React.Component {
-   componentDidMount() {
-      const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+   console.log("App.js");
+
+   useEffect(() => {
       checkUserSession();
-      //    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      //       if (userAuth) {
-      //          const userRef = await createUserProfileDocument(userAuth);
-      //          userRef.onSnapshot((snapshot) => {
-      //             setCurrentUser({
-      //                id: snapshot.id,
-      //                ...snapshot.data(),
-      //             });
-      //          });
-      //       } else {
-      //          setCurrentUser(userAuth);
-      //       }
-      //    });
-   }
+   },[checkUserSession])
 
-   componentWillUnmount() {}
-
-   render() {
       return (
          <Router>
             <div className="App">
@@ -56,7 +41,7 @@ class App extends React.Component {
                      exact
                      path="/signin"
                      render={() =>
-                        this.props.currentUser ? (
+                      currentUser ? (
                            <Redirect to="/" />
                         ) : (
                            <SignInAndSignUpPage />
@@ -71,7 +56,6 @@ class App extends React.Component {
          </Router>
       );
    }
-}
 
 const mapStateToProps = createStructuredSelector({
    currentUser: selectCurrentUser,
