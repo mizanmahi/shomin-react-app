@@ -21,41 +21,36 @@ import CheckoutPage from "./pages/checkout/checkout-page.component";
 import CollectionPage from "./pages/collection/collection.component";
 
 // css
-import "./App.css";
+import { GlobalStyles } from "./globalStyles";
 
 const App = ({ checkUserSession, currentUser }) => {
-   console.log("App.js");
-
    useEffect(() => {
       checkUserSession();
-   },[checkUserSession])
+   }, [checkUserSession]);
 
-      return (
-         <Router>
-            <div className="App">
-               <Header />
-               <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/shop" component={ShopPage} />
-                  <Route
-                     exact
-                     path="/signin"
-                     render={() =>
-                      currentUser ? (
-                           <Redirect to="/" />
-                        ) : (
-                           <SignInAndSignUpPage />
-                        )
-                     }
-                  />
+   return (
+      <Router>
+         <div className="App">
+            <Header />
+            <Switch>
+               <Route exact path="/" component={HomePage} />
+               <Route path="/shop" component={ShopPage} />
+               <Route
+                  exact
+                  path="/signin"
+                  render={() =>
+                     currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+                  }
+               />
 
-                  <Route exact path="/checkout" component={CheckoutPage} />
-                  <Route exact path="/collections" component={CollectionPage} />
-               </Switch>
-            </div>
-         </Router>
-      );
-   }
+               <Route exact path="/checkout" component={CheckoutPage} />
+               <Route exact path="/collections" component={CollectionPage} />
+            </Switch>
+         </div>
+         <GlobalStyles/>
+      </Router>
+   );
+};
 
 const mapStateToProps = createStructuredSelector({
    currentUser: selectCurrentUser,

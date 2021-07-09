@@ -7,7 +7,6 @@ import logo from "../../assets/img/logo.png";
 import CartIcon from "../cart-item/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-import "./header.style.scss";
 
 import {
    HeaderContainer,

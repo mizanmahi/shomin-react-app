@@ -1,5 +1,17 @@
 .sign-in {
-    width: 40%;
+    width: 45%;
     display: flex;
     flex-direction: column;
+    @media only screen and (max-width: 700px){
+        width: 80%;
+        margin-bottom: 2rem;
+    }
+}
+.custom-button-container {
+    @media only screen and (max-width: 1000px){
+        display: flex;
+        flex-direction: column;
+      }
+
+     
 }

@@ -19,7 +19,7 @@ export const Logo = styled.img`
 `;
 
 export const OptionsContainer = styled.div`
-   width: 50%;
+   width: 70%;
    height: 100%;
    display: flex;
    align-items: center;
@@ -28,8 +28,21 @@ export const OptionsContainer = styled.div`
 
 export const OptionLink = styled(Link)`
    padding: 10px 15px;
-   border-radius: 3px;
+   text-decoration: none;
    cursor: pointer;
    transition: 0.3s;
+   font-size: 1.2rem;
+   color: black;
+   @media only screen and (max-width: 1000px){
+      font-size: .8rem;
+      padding: 10px 8px;
+    }
+    @media only screen and (max-width: 600px){
+      font-size: .7rem;
+      padding: 10px 8px;
+    }
+    @media only screen and (max-width: 400px){
+      font-size: .6rem;
+      padding: 10px 5px;
+    }
 `;
-
